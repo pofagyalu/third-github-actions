@@ -1,9 +1,9 @@
-name: Deployment excercise 1
+name: Deployment excercise 2
 
 on: push
 
 jobs:
-  deploy:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -12,8 +12,22 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
       - name: Test code
         run: npm run test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
       - name: Build code
         run: npm run build
       - name: Deploy code
